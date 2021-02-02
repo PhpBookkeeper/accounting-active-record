@@ -13,17 +13,20 @@ final class Entry
     private string $accountId;
     private DateTimeImmutable $dateTime;
     private Money $amount;
+    private EntryType $type;
 
     public function __construct(
         string $id,
         string $accountId,
         Money $amount,
-        DateTimeImmutable $dateTime
+        DateTimeImmutable $dateTime,
+        EntryType $type
     ) {
         $this->id = $id;
         $this->accountId = $accountId;
         $this->amount = $amount;
         $this->dateTime = $dateTime;
+        $this->type = $type;
     }
 
     public function getId(): string
@@ -44,5 +47,10 @@ final class Entry
     public function getDateTime(): DateTimeImmutable
     {
         return $this->dateTime;
+    }
+
+    public function getType(): EntryType
+    {
+        return $this->type;
     }
 }

@@ -30,6 +30,7 @@ final class Transaction
             $debitAccountId,
             $amount,
             $dateTime,
+            EntryType::debit(),
         );
 
         $this->credit = new Entry(
@@ -37,6 +38,7 @@ final class Transaction
             $creditAccountId,
             $amount,
             $dateTime,
+            EntryType::credit(),
         );
 
         $this->amount = $amount;
