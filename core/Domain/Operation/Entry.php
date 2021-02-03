@@ -6,18 +6,19 @@ namespace YiiSoft\Billing\Domain\Operation;
 
 use DateTimeImmutable;
 use Money\Money;
+use YiiSoft\Billing\Domain\Account\AccountId;
 
 final class Entry
 {
-    private string $id;
-    private string $accountId;
+    private EntryId $id;
+    private AccountId $accountId;
     private DateTimeImmutable $dateTime;
     private Money $amount;
     private EntryType $type;
 
     public function __construct(
-        string $id,
-        string $accountId,
+        EntryId $id,
+        AccountId $accountId,
         Money $amount,
         DateTimeImmutable $dateTime,
         EntryType $type
@@ -29,12 +30,12 @@ final class Entry
         $this->type = $type;
     }
 
-    public function getId(): string
+    public function getId(): EntryId
     {
         return $this->id;
     }
 
-    public function getAccountId(): string
+    public function getAccountId(): AccountId
     {
         return $this->accountId;
     }

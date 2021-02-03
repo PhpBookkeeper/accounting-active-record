@@ -8,7 +8,7 @@ use DateTimeImmutable;
 
 final class Operation
 {
-    private string $id;
+    private OperationId $id;
     private DateTimeImmutable $dateTime;
 
     /**
@@ -16,32 +16,21 @@ final class Operation
      */
     private array $transactions;
 
-    /**
-     * @param string $id
-     * @param DateTimeImmutable $dateTime
-     * @param TransactionDto[] $transactionDtos
-     * @param TransactionNextIdentityInterface $transactionNextIdentity
-     * @param EntryNextIdentityInterface $entryNextIdentity
-     */
     public function __construct(
-        string $id,
-        DateTimeImmutable $dateTime,
-        array $transactionDtos,
-        TransactionNextIdentityInterface $transactionNextIdentity,
-        EntryNextIdentityInterface $entryNextIdentity
+        OperationId $id,
+        TransactionDto ...$transactionDtos
     ) {
         $this->id = $id;
-        $this->dateTime = $dateTime;
+        $this->dateTime = new DateTimeImmutable();
 
         $this->transactions = [];
         foreach ($transactionDtos as $dto) {
             $this->transactions[] = new Transaction(
-                $transactionNextIdentity->nextTransactionIdentity(),
-                $dto->debitAccountId,
-                $dto->creditAccountId,
+                $dto->id,
+                $dto->debitEntryDto,
+                $dto->creditEntryDto,
                 $dto->amount,
-                $dateTime,
-                $entryNextIdentity
+                $this->dateTime,
             );
         }
     }

@@ -9,33 +9,32 @@ use Money\Money;
 
 final class Transaction
 {
-    private string $id;
+    private TransactionId $id;
     private Entry $debit;
     private Entry $credit;
     private Money $amount;
     private DateTimeImmutable $dateTime;
 
     public function __construct(
-        string $id,
-        string $debitAccountId,
-        string $creditAccountId,
+        TransactionId $id,
+        EntryDto $debitEntryDto,
+        EntryDto $creditEntryDto,
         Money $amount,
-        DateTimeImmutable $dateTime,
-        EntryNextIdentityInterface $entryNextIdentity
+        DateTimeImmutable $dateTime
     ) {
         $this->id = $id;
 
         $this->debit = new Entry(
-            $entryNextIdentity->nextEntryIdentity(),
-            $debitAccountId,
+            $debitEntryDto->id,
+            $debitEntryDto->accountId,
             $amount,
             $dateTime,
             EntryType::debit(),
         );
 
         $this->credit = new Entry(
-            $entryNextIdentity->nextEntryIdentity(),
-            $creditAccountId,
+            $creditEntryDto->id,
+            $creditEntryDto->accountId,
             $amount,
             $dateTime,
             EntryType::credit(),
@@ -45,7 +44,7 @@ final class Transaction
         $this->dateTime = $dateTime;
     }
 
-    public function getId(): string
+    public function getId(): TransactionId
     {
         return $this->id;
     }

@@ -8,7 +8,8 @@ use Money\Money;
 
 final class TransactionDto
 {
-    public string $debitAccountId;
-    public string $creditAccountId;
+    public TransactionId $id;
+    public EntryDto $debitEntryDto;
+    public EntryDto $creditEntryDto;
     public Money $amount;
 }
