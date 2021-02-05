@@ -27,8 +27,8 @@ final class Operation
         foreach ($transactionDtos as $dto) {
             $this->transactions[] = new Transaction(
                 $dto->id,
-                $dto->debitEntryDto,
-                $dto->creditEntryDto,
+                $dto->debitAccountId,
+                $dto->creditAccountId,
                 $dto->amount,
                 $this->dateTime,
             );

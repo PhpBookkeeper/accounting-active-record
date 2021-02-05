@@ -10,29 +10,18 @@ use YiiSoft\Billing\Domain\Account\AccountId;
 
 final class Entry
 {
-    private EntryId $id;
     private AccountId $accountId;
     private DateTimeImmutable $dateTime;
     private Money $amount;
-    private EntryType $type;
 
     public function __construct(
-        EntryId $id,
         AccountId $accountId,
         Money $amount,
-        DateTimeImmutable $dateTime,
-        EntryType $type
+        DateTimeImmutable $dateTime
     ) {
-        $this->id = $id;
         $this->accountId = $accountId;
         $this->amount = $amount;
         $this->dateTime = $dateTime;
-        $this->type = $type;
-    }
-
-    public function getId(): EntryId
-    {
-        return $this->id;
     }
 
     public function getAccountId(): AccountId
@@ -48,10 +37,5 @@ final class Entry
     public function getDateTime(): DateTimeImmutable
     {
         return $this->dateTime;
-    }
-
-    public function getType(): EntryType
-    {
-        return $this->type;
     }
 }

@@ -6,6 +6,7 @@ namespace YiiSoft\Billing\Domain\Operation;
 
 use DateTimeImmutable;
 use Money\Money;
+use YiiSoft\Billing\Domain\Account\AccountId;
 
 final class Transaction
 {
@@ -17,27 +18,23 @@ final class Transaction
 
     public function __construct(
         TransactionId $id,
-        EntryDto $debitEntryDto,
-        EntryDto $creditEntryDto,
+        AccountId $debitAccountId,
+        AccountId $creditAccountId,
         Money $amount,
         DateTimeImmutable $dateTime
     ) {
         $this->id = $id;
 
         $this->debit = new Entry(
-            $debitEntryDto->id,
-            $debitEntryDto->accountId,
+            $debitAccountId,
             $amount,
-            $dateTime,
-            EntryType::debit(),
+            $dateTime
         );
 
         $this->credit = new Entry(
-            $creditEntryDto->id,
-            $creditEntryDto->accountId,
+            $creditAccountId,
             $amount,
-            $dateTime,
-            EntryType::credit(),
+            $dateTime
         );
 
         $this->amount = $amount;
