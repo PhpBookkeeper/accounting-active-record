@@ -18,18 +18,18 @@ final class Operation
 
     public function __construct(
         OperationId $id,
-        TransactionDto ...$transactionDtos
+        CreateTransactionData ...$createTransactionData
     ) {
         $this->id = $id;
         $this->dateTime = new DateTimeImmutable();
 
         $this->transactions = [];
-        foreach ($transactionDtos as $dto) {
+        foreach ($createTransactionData as $data) {
             $this->transactions[] = new Transaction(
-                $dto->id,
-                $dto->debitAccountId,
-                $dto->creditAccountId,
-                $dto->amount,
+                $data->id,
+                $data->debitAccountId,
+                $data->creditAccountId,
+                $data->amount,
                 $this->dateTime,
             );
         }
